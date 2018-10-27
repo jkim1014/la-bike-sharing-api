@@ -1,5 +1,5 @@
 {
-  "name": "nxt.click-api",
+  "name": "la-bike-sharing-api",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,6 +8,7 @@
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
+    "csv-parser": "^2.1.0",
     "dotenv": "^6.0.0",
     "eslint-plugin-react": "^7.11.1",
     "express": "^4.16.3",
@@ -15,6 +16,7 @@
     "graphql-iso-date": "^3.5.0",
     "graphql-tag": "^2.9.1",
     "graphql-tools": "^3.0.2",
+    "haversine": "^1.1.0",
     "jsonwebtoken": "^8.2.2",
     "knex": "^0.15.2",
     "lodash": "^4.17.10",

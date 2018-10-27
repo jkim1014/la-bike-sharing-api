@@ -5,10 +5,10 @@ module.exports = {
     client: 'pg',
     connection: config.databaseUrl,
     migrations: {
-      directory: './db/migrations'
+      directory: './src/db/migrations'
     },
     seeds: {
-      directory: './db/seeds/dev'
+      directory: './src/db/seeds/dev'
     },
     useNullAsDefault: true
   }

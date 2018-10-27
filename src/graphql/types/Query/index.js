@@ -1,7 +1,9 @@
 const merge = require('lodash.merge')
 
-const user = require('./user')
+const trip = require('./Trip')
+const station = require('./Station')
+const travel = require('./Travel')
 
-const resolvers = [user]
+const resolvers = [trip, station, travel]
 
 module.exports = merge(...resolvers)
