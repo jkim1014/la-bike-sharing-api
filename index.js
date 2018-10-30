@@ -9,9 +9,8 @@ const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
 
 const knexfile = require('./knexfile')
-const User = require('./src/models/user')
 const schema = require('./src/graphql')
-const { tokenSecret, port } = require('./config')
+const { port } = require('./config')
 
 const knex = Knex(knexfile.development)
 Model.knex(knex)
@@ -55,17 +54,6 @@ app.use(
   '/graphql',
   bodyParser.json(),
   graphqlExpress(async req => {
-    const token = req.headers.authorization
-    if (token) {
-      const decoded = jwt.verify(token, tokenSecret)
-      const user = await User.query().findById(decoded.id)
-      return {
-        schema,
-        context: {
-          user,
-        },
-      }
-    }
     return {
       schema,
     }

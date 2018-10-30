@@ -36,7 +36,9 @@
     "start": "node index.js",
     "reset": "node index.js --force",
     "copy-env": "cp sample.env .env",
-    "setup-db": "createdb nxt.click"
+    "setup-db": "createdb la-bike",
+    "db-start": "brew services start postgresql",
+    "setup": "npm-run-all db-start setup-db"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

@@ -1,7 +1,6 @@
-const { createTableIfNotExists } = require('../helpers')
-
-exports.up = async knex =>
-  createTableIfNotExists(knex, 'trips', table => {
+/* eslint-disable */
+exports.up = knex => {
+  return knex.schema.createTable('trips', function(table) {
     table
       .increments('primaryId')
       .notNullable()
@@ -18,36 +17,34 @@ exports.up = async knex =>
       .notNullable()
       .unsigned()
 
-    table.dateTime('startTime').notNullable()
+    table
+      .dateTime('startTime')
+      .index()
+      .notNullable()
 
-    table.dateTime('endTime').notNullable()
+    table
+      .dateTime('endTime')
+      .index()
+      .notNullable()
 
-    table.boolean('isOneWay').notNullable()
+    table
+      .string('tripType')
+      .index()
+      .notNullable()
 
     table
       .integer('plan')
-      .notNullable()
+      .index()
       .unsigned()
 
-    table
-      .integer('startStationId')
-      .index()
-      .unique()
-      .notNullable()
-      .references('stations.id')
-    table
-      .integer('endStationId')
-      .index()
-      .unique()
-      .notNullable()
-      .references('stations.id')
-
-    table
-      .integer('bikeId')
-      .index()
-      .unique()
-      .notNullable()
-      .references('bikes.id')
+    table.integer('startStationId').index()
+    table.float('startLatitude')
+    table.float('startLongitude')
+    table.integer('endStationId').index()
+    table.float('endLatitude')
+    table.float('endLongitude')
+    table.integer('bikeId').index()
   })
+}
 
-exports.down = async knex => knex.schema.dropTable('users')
+exports.down = async knex => knex.schema.dropTable('trips')

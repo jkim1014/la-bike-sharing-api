@@ -1,3 +1,5 @@
+const dotenv = require('dotenv').config()
+
 module.exports = {
   tokenSecret: process.env.TOKEN_SECRET || 'reughdjsasdkpmasipkmsdfadf',
   saltRounds: process.env.SALT_ROUNDS || 10,

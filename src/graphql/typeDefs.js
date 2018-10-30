@@ -6,14 +6,11 @@ module.exports = gql`
     station(id: ID!): Station
     topTenStartStations: [Station!]!
     topTenStopStations: [Station!]!
-    averageTripDuration(planDuration: PlanDuration!): Float!
-    averageDistanceTravelled(oneWay: Bool!): Float!
+    averageTripDuration(planDuration: Int!): Float!
+    averageDistanceTravelled(oneWay: Boolean!): Float!
     breakDown(input: BreakDownInput!): BreakDownReturn!
     seasonal(season: String!): SeasonalReturn!
     mostUsedBike: Bike!
-  }
-  type Mutation {
-    parseData: ParseDataReturn!
   }
   type Trip {
     id: ID!
@@ -36,7 +33,7 @@ module.exports = gql`
   }
   type ParseDataReturn {
     success: Boolean!
-    error: String!
+    error: String
   }
   type BreakDownReturn {
     percentage: Float!
