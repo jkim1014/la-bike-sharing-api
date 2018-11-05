@@ -4,13 +4,16 @@ module.exports = gql`
   type Query {
     trip(id: ID!): Trip
     station(id: ID!): Station
-    topTenStartStations: [Station!]!
-    topTenStopStations: [Station!]!
-    averageTripDuration(planDuration: Int!): Float!
-    averageDistanceTravelled(oneWay: Boolean!): Float!
+    topTenStartStations: [StationWithCount!]!
+    topTenStopStations: [StationWithCount!]!
+    averageTripDuration(planDuration: Int): Float!
+    averageDistanceTravelled(tripType: String): Float!
+    regular: Float!
     breakDown(input: BreakDownInput!): BreakDownReturn!
     seasonal(season: String!): SeasonalReturn!
-    mostUsedBike: Bike!
+    topTenRoutes: [Route!]!
+    peakHours: [Hour!]!
+    weekend: Weekend!
   }
   type Trip {
     id: ID!
@@ -23,10 +26,29 @@ module.exports = gql`
     isOneWay: Boolean!
     bike: Bike!
   }
+  type Weekend {
+    avgWeekend: Float!
+    avgWeekday: Float!
+  }
+  type StationWithCount {
+    id: ID!
+    latitude: Float!
+    longitude: Float!
+    count: Int!
+  }
   type Station {
     id: ID!
     latitude: Float!
     longitude: Float!
+  }
+  type Route {
+    startStationId: ID!
+    endStationId: ID!
+    frequency: Int!
+  }
+  type Hour {
+    hour: Int!
+    frequency: Int!
   }
   type Bike {
     id: ID!
@@ -44,7 +66,7 @@ module.exports = gql`
     topThreeStations: [Station!]!
   }
   input BreakDownInput {
-    isOneWay: Boolean
+    tripType: String
     planDuration: Int!
   }
 `
