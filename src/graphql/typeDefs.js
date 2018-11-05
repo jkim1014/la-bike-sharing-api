@@ -14,6 +14,7 @@ module.exports = gql`
     topTenRoutes: [Route!]!
     peakHours: [Hour!]!
     weekend: Weekend!
+    bike: [StationInfo!]!
   }
   type Trip {
     id: ID!
@@ -40,6 +41,10 @@ module.exports = gql`
     id: ID!
     latitude: Float!
     longitude: Float!
+  }
+  type StationInfo {
+    station: String!
+    deficit: Int!
   }
   type Route {
     startStationId: ID!
