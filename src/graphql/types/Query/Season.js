@@ -56,15 +56,28 @@ const seasonResolver = async (obj, input) => {
   const popularPlan = parseInt(
     Object.keys(counter).reduce((a, b) => (counter[a] > counter[b] ? a : b)),
   )
-
-  const topThreeSubQuery = await Trip.query()
-    .select('startStationId')
-    .count('startStationId as count')
-    .whereRaw('EXTRACT(MONTH FROM "startTime") >= ?', season.start)
-    .whereRaw('EXTRACT(MONTH FROM "startTime") <= ?', season.end)
-    .groupBy('startStationId')
-    .orderByRaw('count DESC')
-    .limit(3)
+  let topThreeSubQuery
+  if (input.season === 'Winter') {
+    topThreeSubQuery = await Trip.query()
+      .select('startStationId')
+      .count('startStationId as count')
+      .whereRaw(
+        'EXTRACT(MONTH FROM "startTime") = 12 OR EXTRACT(MONTH FROM "startTime") <= ?',
+        season.end,
+      )
+      .groupBy('startStationId')
+      .orderByRaw('count DESC')
+      .limit(3)
+  } else {
+    topThreeSubQuery = await Trip.query()
+      .select('startStationId')
+      .count('startStationId as count')
+      .whereRaw('EXTRACT(MONTH FROM "startTime") >= ?', season.start)
+      .whereRaw('EXTRACT(MONTH FROM "startTime") <= ?', season.end)
+      .groupBy('startStationId')
+      .orderByRaw('count DESC')
+      .limit(3)
+  }
   const topThreeStartingStations = topThreeSubQuery.map(async station => {
     const start = await Trip.query()
       .where('startStationId', station.startStationId)
